@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Pressable, View} from 'react-native';
-import {useAnimatedStyle} from 'react-native-reanimated';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {styles} from './styles';
 import {basicDeck} from '../../decks/first';
 
@@ -20,6 +20,8 @@ const Card = props => {
   } = styles;
   const {bottom, card, onPress} = props;
 
+  const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
   const animatedStyle = useAnimatedStyle(() => {
     return {
       bottom: bottom,
@@ -27,7 +29,7 @@ const Card = props => {
   });
 
   return (
-    <Pressable onPress={onPress} style={[container, animatedStyle]}>
+    <AnimatedPressable onPress={onPress} style={[container, animatedStyle]}>
       <View style={topContainer}>
         <Image source={basicDeck.cards[card]?.cornerText} style={topValue} />
         <Image source={basicDeck.cards[card]?.cornerSuit} style={topSuit} />
@@ -39,7 +41,7 @@ const Card = props => {
         <Image source={basicDeck.cards[card]?.cornerText} style={bottomValue} />
         <Image source={basicDeck.cards[card]?.cornerSuit} style={bottomSuit} />
       </View>
-    </Pressable>
+    </AnimatedPressable>
   );
 };
 
